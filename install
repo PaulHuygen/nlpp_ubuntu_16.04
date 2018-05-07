@@ -1,0 +1,17 @@
+#!/bin/bash
+# Install the newsreader pipeline on a fresh Ubuntu 16.04.
+thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $thisdir/source
+if
+  [ ! -e "${secretkey}" ]
+then
+  echo "Get ${secretkey} first!"
+  exit 4
+fi
+( mkdir -p $repodir
+  cd $repodir
+  yes | scp -i ${secretkey} -r ${secretrepo_url}/* .
+) &
+sudo -H ./ubu
+wait
+

@@ -1,0 +1,14 @@
+socket=/usr/local/share/pipelines
+packagelist=${thisdir}/ubuntu_packages
+repodir=$socket/repo
+secretkey=${HOME}/nrkey
+secretrepo_url=newsreader@kyoto.let.vu.nl:secretmodules
+#
+#
+secretrepodir=$repodir/secretmodules
+dldir=$repodir/downloaded_materials
+ubu_packagelist=$repodir/packages_to_install
+downloadlist=$repodir/downloadurls
+root=$socket/nlpp
+modulesdir=${root}/nlppmodules
+modulelist=$repodir/modulelist
