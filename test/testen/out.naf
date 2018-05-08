@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<NAF version="v3" xml:lang="">
+  <nafHeader>
+    <linguisticProcessors layer="coreferences">
+      <lp beginTimestamp="2018-05-07T14:43:13+0200" endTimestamp="2018-05-07T14:43:13+0200" hostname="packer-Ubuntu-16" name="vua-event-coref-intradoc-wn-sim" timestamp="2018-05-07T14:43:13+0200" version="3.0"/>
+    </linguisticProcessors>
+    <linguisticProcessors layer="factualities">
+      <lp name="vua-perspectives_factuality" version="1.1" timestamp="2018-05-07T14:43:13CEST" beginTimestamp="2018-05-07T14:43:13CEST" endTimestamp="2018-05-07T14:43:13CEST" hostname="packer-Ubuntu-16"/>
+    </linguisticProcessors>
+  </nafHeader>
+  <factualities/>
+</NAF>

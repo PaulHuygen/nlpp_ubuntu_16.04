@@ -3,12 +3,14 @@ packagelist=${thisdir}/ubuntu_packages
 repodir=$socket/repo
 secretkey=${HOME}/nrkey
 secretrepo_url=newsreader@kyoto.let.vu.nl:secretmodules
+modulelist=$thisdir/nlpp_modules
+root=$socket/nlpp
+modulesdir=${root}/nlppmodules
+srl_server_pid_dir=/var/run/srl-server
+srl_server_pid_filename=SRLServer.pid
 #
 #
 secretrepodir=$repodir/secretmodules
 dldir=$repodir/downloaded_materials
 ubu_packagelist=$repodir/packages_to_install
 downloadlist=$repodir/downloadurls
-root=$socket/nlpp
-modulesdir=${root}/nlppmodules
-modulelist=$repodir/modulelist

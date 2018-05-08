@@ -1,0 +1,121 @@
+#!/bin/bash
+# installmodules -- Install the nlpp modules
+# installs modules in subdir nlppmodules of the directory from which this script is started.
+# Presupposes git
+# 20170905 Paul Huygen
+# 20180507 Paul Huygen
+thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $thisdir/source
+#if
+#    [ ! -z ${1+x} ]
+#then
+#    source $1
+#else
+#    source /usr/local/bin/source
+#fi
+# set -e
+# modulesocket=/usr/local/nlpp
+# modulesdir=${modulesocket}/nlppmodules
+mkdir -p $modulesdir
+#secretrepodir=newsreader@kyoto.let.vu.nl:v4.0.0.0_nlpp_resources
+#secretkey=${pipesocket}/nrkey
+#echo key: ${secretkey} >&2
+
+# Occasionally cloning from git fails, but the failure is not reproducible. Therefore, repeat cloning if it fails.
+
+# Clone from Github and perform install script in the root dir of the clone
+# Github cloning may fail occasionally. Therefore, retry (max. maxtrials times) if it fails.
+# Args:
+# reponame: name of reposistory (module)
+# repourl: Github url of the repository
+# commitset: commitset of the version of the module that we need.
+function install_from_git () {
+    local reponame=$1
+    local repourl=$2
+    local commitset=$3
+    local maxtrials=10
+    local res=0
+    local trial=0
+    local go_on=0
+    cd ${modulesdir}
+    while
+	[ $go_on == 0 ]
+    do
+ 	git clone $repourl
+	res=$?
+	if
+	    [ $res == 0 ]
+	then
+	    cd $reponame
+	    git checkout $commitset
+	    if
+		[ -x "./install" ]
+	    then
+		./install
+	    fi
+	    go_on=1
+	else
+	    trial=$((trial+1))
+	    if
+		[ $trial -ge $maxtrials ]
+	    then
+		go_on=1
+		echo "GIT FAIL: cloning of $repourl failed $maxtrials times" >&2
+	    fi
+	fi
+    done
+    cd ${modulesdir}
+}
+
+
+function  install_from_repo {
+  local modulename=$1
+  local ball=$2
+  cd ${modulesdir}
+  if
+      [ -e $repodir/$ball ]
+  then
+      echo "Install $modulename from $ball" >&2
+      tar -xzf ${repodir}/${ball}
+#     rm ${ball}
+      cd ${modulesdir}/${modulename}
+      if
+	  [ -e install ]
+      then
+	  ./install &>./install.log
+      fi
+  else
+#      scp -i ${secretkey} ${secretrepodir}/${ball} .
+      echo "Not installing $modulename from $ball" >&2
+  fi
+  cd ${modulesdir}
+}
+
+#
+# Do the work
+#
+while
+  IFS=' ' read -ra args
+do
+    export modulename="${args[0]}"
+    installmethod="${args[1]}"
+    if
+	[ -d ${modulesdir}/${modulename} ]
+    then
+	echo "Not re-installing existing ${modulename}" >&2
+	continue
+    fi
+    if
+	[ "${installmethod}" == "GIT" ]
+    then
+        export url="${args[2]}"
+	export commitset="${args[3]}"
+	( install_from_git ${modulename} ${url} ${commitset} ) &
+    else
+	export ball="${args[2]}"
+	echo "Install $modulename from secret repo" >&2
+	( install_from_repo ${modulename} ${ball} ) &
+    fi
+done
+wait
+

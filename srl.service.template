@@ -1,0 +1,7 @@
+[Unit]
+Description=Semantic Role Labeling service  
+After=systemd-user-sessions.service
+[Service]
+Type=simple
+ExecStart=servermoduledir/run-server.sh
+ExecStop=servermoduledir/stop-server.sh

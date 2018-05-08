@@ -10,8 +10,9 @@ then
 fi
 ( mkdir -p $repodir
   cd $repodir
-  yes | scp -i ${secretkey} -r ${secretrepo_url}/* .
+  yes | scp -i ${secretkey} -r -o StrictHostKeyChecking=no ${secretrepo_url}/* .
 ) &
 sudo -H ./ubu
 wait
-
+cat $modulelist | ${thisdir}/installmodules
+echo "Finished"

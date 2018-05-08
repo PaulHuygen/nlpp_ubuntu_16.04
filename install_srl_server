@@ -1,0 +1,12 @@
+#!/bin/bash
+# install_srl_server -- Install the <not_so_neat_words/> srl-server
+# Run this as root
+# 20180508 Paul Huygen
+thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $thisdir/source
+mkdir ${srl_server_pid_dir}
+awkscript="{gsub(/servermoduledir/, \"$modulesdir/EHU-srl-server\"); print}"
+cat ${thisdir}/srl.service.template | gawk "$awkscript" >/usr/local/etc/srl.service
+ln -s /usr/local/etc/srl.service /etc/systemd/system/srl.service
+systemctl daemon-reload
+systemctl start srl
