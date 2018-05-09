@@ -110,11 +110,11 @@ do
     then
         export url="${args[2]}"
 	export commitset="${args[3]}"
-	( install_from_git ${modulename} ${url} ${commitset} ) &
+	( install_from_git ${modulename} ${url} ${commitset} )
     else
 	export ball="${args[2]}"
 	echo "Install $modulename from secret repo" >&2
-	( install_from_repo ${modulename} ${ball} ) &
+	( install_from_repo ${modulename} ${ball} )
     fi
 done
 wait
