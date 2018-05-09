@@ -15,4 +15,5 @@ fi
 sudo -H ./ubu
 wait
 cat $modulelist | ${thisdir}/installmodules
+sudo -H ./install_srl_server
 echo "Finished"
