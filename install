@@ -1,5 +1,20 @@
 #!/bin/bash
 # Install the newsreader pipeline on a fresh Ubuntu 16.04.
+
+function runsudo () {
+    which sudo
+    res=$?
+    if
+	[ $res -gt 0 ]
+    then
+	$1
+    else
+	sudo -H $1
+    fi
+    
+}
+
+
 thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $thisdir/source
 if
@@ -12,8 +27,10 @@ fi
   cd $repodir
   yes | scp -i ${secretkey} -r -o StrictHostKeyChecking=no ${secretrepo_url}/* .
 ) &
-sudo -H ./ubu
+#sudo -H ./ubu
+runsudo  "./ubu"
 wait
 cat $modulelist | ${thisdir}/installmodules
-sudo -H ./install_srl_server
+# sudo -H ./install_srl_server
+runsudo "./install_srl_server"
 echo "Finished"

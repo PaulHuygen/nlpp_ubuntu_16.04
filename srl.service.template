@@ -1,3 +1,11 @@
+[program:srl]
+command=/usr/local/share/spotserver/startspotlight
+autostart=true
+autorestart=true
+stderr_logfile=/tmp/spotlight.err.log
+stdout_logfile=/tmp/spotlight.out.log
+
+
 [Unit]
 Description=Semantic Role Labeling service  
 After=systemd-user-sessions.service
@@ -5,3 +13,5 @@ After=systemd-user-sessions.service
 Type=simple
 ExecStart=servermoduledir/run-server.sh
 ExecStop=servermoduledir/stop-server.sh
+
+

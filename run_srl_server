@@ -1,0 +1,14 @@
+#!/bin/bash
+# install_srl_server -- Start the <not_so_neat_words/> srl-server
+# It just runs the script to start the server.
+# To be used in Docker containers in which systemd cannot be used
+# Run this as root
+# 20180508 Paul Huygen
+thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $thisdir/source
+srlmodulename=EHU-srl-server
+srlmodulepath=$modulesdir/${srlmodulename}
+srl_startscript=${srlmodulepath}/run-server.sh
+mkdir -p ${srl_server_pid_dir}
+${srl_startscript}
+
