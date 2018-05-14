@@ -1,5 +1,5 @@
 #!/bin/bash
-# install_srl_server -- Start the <not_so_neat_words/> srl-server
+# run_srl_server -- Start the <not_so_neat_words/> srl-server
 # It just runs the script to start the server.
 # To be used in Docker containers in which systemd cannot be used
 # Run this as root
