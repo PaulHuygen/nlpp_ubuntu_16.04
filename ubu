@@ -21,4 +21,5 @@ pip install --upgrade requests
 pip install networkx==1.11
 pip install --upgrade kafnafparserpy
 pip install SPARQLWrapper
+pip install flask
 
