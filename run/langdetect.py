@@ -12,4 +12,4 @@ lang = "unknown"
 for k in root.attrib:
    if re.match(".*lang$", k):
      language = root.attrib[k]
-print language
+print(language)

@@ -14,3 +14,8 @@ secretrepodir=$repodir/secretmodules
 dldir=$repodir/downloaded_materials
 ubu_packagelist=$repodir/packages_to_install
 downloadlist=$repodir/downloadurls
+#
+# Run-time stuff
+#
+configdir=/usr/local/etc/nlpp
+bindir=/usr/local/bin
