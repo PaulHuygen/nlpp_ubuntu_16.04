@@ -22,4 +22,11 @@ pip install networkx==1.11
 pip install --upgrade kafnafparserpy
 pip install SPARQLWrapper
 pip install flask
+#
+# Put files for run-time on their places
+mkdir -p $configdir
+mkdir -p $bindir
+cp $thisdir/run/nlpp $bindir/
+cp $thisdir/langdetect.py $bindir/
+cp $thisdir/run/conf $configdir/
 

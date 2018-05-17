@@ -1,0 +1,63 @@
+#!/bin/bash
+# testit -- test newly installed pipeline
+# 20170907 Paul Huygen
+export thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
+export confdir=/usr/local/etc/nlpp
+initscript=${confdir}/conf
+source $initscript
+scratchdir=`mkdir -d -t nlpp.XXXXXX`
+res=0
+
+function runmodule {
+   local infile=$1
+   local modnam=$2
+   local outfile=$3
+   cat ${infile} | $MODROOT/${modnam}/run > ${outfile}
+   res=$?
+}
+
+
+# run_pipeline -- run the pipeline
+# Assume current dir is work-dir, contains in.naf.
+function run_pipeline {
+    naflang=$1
+    modulelist=${confdir}/modules.${naflang}
+    lastfile=in.naf
+    while
+	IFS=' ' read -r module || [[ -n "$module" ]]
+    do
+	echo "Annotate ${lastfile} with ${module}"
+        nextfile=${module}.naf
+        cat ${lastfile} | ${MODROOT}/${module} >${module.naf}
+	res=$?
+	if
+	    [ ${res} -gt 0 ]
+	then
+	    break
+	fi
+	lastfile=${module}.naf
+    done < ${modulelist}
+    ln -s ${lastfile} out.naf
+}
+
+
+
+cd $scratchdir
+cat >in.naf
+export naflang=`cat in.naf | $bindir/langdetect.py`
+if
+    [ "$naflang" != "nl" -o "$naflang" != "en" ]
+then
+    echo "Language $naflang is not supported."
+    exit 4
+fi
+run_pipeline $naflang
+
+
+export NAFLANG='nl'
+run_pipeline ${thisdir}/testnl ${thisdir}/test.nl.in.naf ${thisdir}/modules.nl
+if
+    [ $res -gt 0 ]
+then
+    echo "Pipeline has not been completed due to an error."
+fi
