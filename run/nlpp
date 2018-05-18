@@ -4,6 +4,7 @@
 export thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 bindir=${thisdir}
 export confdir=/usr/local/etc/nlpp
+keep_temp=1
 if
     [ "$1" == 'k' ]
 then
