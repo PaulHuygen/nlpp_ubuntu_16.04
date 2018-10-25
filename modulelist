@@ -17,7 +17,7 @@ vua-srl-dutch-nominal-events GIT  https://github.com/PaulHuygen/vua-srl-dutch-no
 multilingual_factuality      GIT  https://github.com/PaulHuygen/multilingual_factuality.git 1f47e7bf4c584f8d5b4b74a0c5489ba28d15f37b
 EventCoreference             GIT  https://github.com/PaulHuygen/EventCoreference.git 1f5125331528c1c57998cc2728703dcbef32cea2
 EHU-ukb.v30                  SEC  20171004_EHU-ukb.v30.tgz
-it_makes_sense_WSD           GIT  https://github.com/PaulHuygen/it_makes_sense_WSD.git 91fb1cdcef02b7676dfde8179ed68d6ffa125192
+it_makes_sense_WSD           GIT  https://github.com/PaulHuygen/it_makes_sense_WSD.git 6fafbda7a34ffe69accfa9c5023ebf90a078b582
 EHU-corefgraph.v30           SEC  20171005_EHU-corefgraph.v30.tgz
 EHU-srl-server               SEC  20171005_EHU-srl-server.tgz
 FBK-time.v30                 SEC  20170831_FBK-time.v30.tgz
