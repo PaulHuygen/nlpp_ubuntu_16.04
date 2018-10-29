@@ -11,7 +11,7 @@ ixa-pipe-wikify
 EHU-ukb.v30
 it_makes_sense_WSD
 EHU-corefgraph.v30
-EHU-srl-server
+ixa-pipe-srl
 FBK-time.v30
 FBK-temprel.v30
 FBK-causalrel.v30

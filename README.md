@@ -64,4 +64,13 @@ A brief test goes as follows:
 
 The script `test/testit` illustrates how the pipeline can be used.
 
+## Notes
+
+### SRL server
+
+Module `ixa-pipe-srl` needs to have a server running. The installer in
+this package does not start this server. If you want to run the server
+under a system-daemon, you have to modify the `run` and the
+`check_run_server`scripts in the `ixa-pipe-srl` package.
+
 

@@ -1,45 +1,49 @@
 #!/bin/bash
 # testit -- test newly installed pipeline
 # 20170907 Paul Huygen
+export scriptname=$0
 export thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
-initscript=${thisdir}/conf
-source $initscript
-# export MODROOT=/usr/local/nlpp/nlppmodules
-mkdir -p testen
-mkdir -p testnl
-res=0
+export socket="$(dirname $thisdir)"
+export rundir=${socket}/run
+source $rundir/conf
+unset NAFLANG
 
-function runmodule {
-   local infile=$1
-   local modnam=$2
-   local outfile=$3
-   cat ${infile} | $MODROOT/${modnam}/run > ${outfile}
-   res=$?
+while getopts ":l:" opt; do
+  case $opt in
+    l) NAFLANG=$OPTARG
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
+
+function testrun () {
+    testlang=$1
+    testdir=${thisdir}/test${testlang}
+    mkdir -p ${testdir}
+    rm -rf ${testdir}/*.naf
+#    cp ${thisdir}/test.${testlang}.in.naf ${testdir}/in.naf
+    ${rundir}/nlpp -k -t ${testdir} < ${thisdir}/test.${testlang}.in.naf >/dev/null
 }
 
-
-# run_pipeline -- run the pipeline
-# args:
-# 1: directory to run the pipeline in
-# 2: input naf
-# 3: path to file with list of modules
-function run_pipeline {
-    local rundir=$1
-    local infile=$2
-    local modulelist=$3
-    local lastfile=$infile
-    cd $rundir
-    while
-	IFS=' ' read -r module || [[ -n "$module" ]]
-    do
-	echo "Annotate ${lastfile} with ${module}"
-	runmodule ${lastfile} ${module} ${module}.naf
-	lastfile=${module}.naf
-    done < ${modulelist}
-    ln -s ${lastfile} out.naf
-}
-
-export NAFLANG='en'
-run_pipeline ${thisdir}/testen ${thisdir}/test.en.in.naf ${thisdir}/modules.en
-export NAFLANG='nl'
-run_pipeline ${thisdir}/testnl ${thisdir}/test.nl.in.naf ${thisdir}/modules.nl
+if
+    [ -z ${NAFLANG+x} ]
+then
+    $scriptname -l "en"
+    $scriptname -l "nl"
+else
+    if
+	[ "$NAFLANG" == 'en' -o "$NAFLANG" == 'nl' ]
+    then
+	testrun "$NAFLANG"
+    else
+	echo "Invalid language: $NAFLANG."
+	exit 1
+    fi
+fi

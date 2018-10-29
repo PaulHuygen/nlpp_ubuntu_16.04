@@ -2,17 +2,42 @@
 # testit -- test newly installed pipeline
 # 20170907 Paul Huygen
 export thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
+oldd=`pwd`
 bindir=${thisdir}
 export confdir=/usr/local/etc/nlpp
-keep_temp=1
-if
-    [ "$1" == 'k' ]
-then
-    keep_temp=0
-fi
+progname=$0
+unset keep_temp
+unset workdir
+
+function show_help () {
+echo "usage: $progname [-k] [-t workdir ] < infile > outfile"
+echo "infile : raw naf"
+echo "outfile : annotated naf"
+echo "-k : Keep intermediate results in the workdir"
+echo "-t : use workdir for intermediate results"
+}
+
+while getopts "h?vkt:" opt; do
+    case "$opt" in
+    h|\?)
+        show_help
+        exit 0
+        ;;
+    v)  verbose=1
+        ;;
+    k)  keep_temp=0
+        ;;
+    t)  workdir=$OPTARG
+    esac
+done
+
 initscript=${confdir}/conf
 source $initscript
-scratchdir=`mktemp -d -t nlpp.XXXXXX`
+if
+    [ -z ${workdir+x} ]
+then
+    workdir=`mktemp -d -t nlpp.XXXXXX`
+fi
 res=0
 
 function runmodule {
@@ -40,6 +65,7 @@ function run_pipeline () {
 	if
 	    [ ${res} -gt 0 ]
 	then
+	    echo "Module ${module} failed." >&2
 	    break
 	fi
 	lastfile=${module}.naf
@@ -47,9 +73,7 @@ function run_pipeline () {
     ln -s ${lastfile} out.naf
 }
 
-
-
-cd $scratchdir
+cd $workdir
 cat >in.naf
 export naflang=`cat in.naf | $bindir/langdetect.py`
 if
@@ -58,7 +82,9 @@ then
     echo "Language $naflang is not supported." >&2
     exit 4
 fi
+res=0
 run_pipeline $naflang
+cd $oldd
 if
     [ $res -gt 0 ]
 then
@@ -67,11 +93,11 @@ then
 fi
 cat out.naf
 if
-    [ $keep_temp == 0 ]
+    [ -z ${keep_temp+x} ]
 then
-    echo "$scratchdir kept" >&2
+    rm -rf $workdir
 else
-    rm -rf $scratchdir
+    echo "$workdir kept" >&2
 fi
 
 
