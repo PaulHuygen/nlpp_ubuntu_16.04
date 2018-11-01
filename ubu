@@ -3,31 +3,93 @@
 # 2. Make Python 3 the default.
 # 3. Install Python packages.
 # 20180507 Paul Huygen
+res=0
+
+function update_res () {
+    tres=$1
+    if
+	[ $tres -gt 0 ]
+    then
+	res=tres
+    fi
+    
+}
+
+function handle_failure () {
+    errmess=$1
+    if
+	[ $res -gt 0 ]
+    then
+	echo $errmess > &2
+	exit 4
+    fi
+    
+
+echo '#######################' >&2 
+echo '#######################' >&2
+echo 'Update Operating System' >&2
+echo '#######################' >&2 
+echo '#######################' >&2 
 thisdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $thisdir/source
 apt-get -y update
+update_res $?
 apt-get -y upgrade
+update_res $?
 apt-get -y install apt-utils wget
+handle_failure 'Cannot update the operating system.'
 xargs -a <(awk '! /^ *(#|$)/' "$packagelist") -r -- apt-get -y install
+update_res $?
 locale-gen en_US.UTF-8
+update_res $?
 update-locale LANG=en_US.UTF-8
+update_res $?
+handle_failure 'Cannot set system locale.'
+echo '#######################' >&2 
+echo '#######################' >&2
+echo 'Install Python packages' >&2
+echo '#######################' >&2 
+echo '#######################' >&2 
 ln -s /usr/bin/python3.5 /usr/local/bin/python
+update_res $?
 ln -s /usr/bin/pip3 /usr/local/bin/pip
+update_res $?
+handle_failure 'Cannot install the proper Python.'
 pip install --upgrade pip
+update_res $?
 pip install lxml
+update_res $?
 pip install pyyaml
+update_res $?
 pip install --upgrade git+https://github.com/ixa-ehu/pynaf.git
+update_res $?
 pip install --upgrade requests
+update_res $?
 pip install networkx==1.11
+update_res $?
 pip install --upgrade kafnafparserpy
+update_res $?
 pip install SPARQLWrapper
+update_res $?
 pip install flask
+update_res $?
+handle_failure 'Cannot install necessary Python packages.'
+echo '#######################' >&2 
+echo '#######################' >&2
+echo 'Put files for run-time on their places' >&2
+echo '#######################' >&2 
+echo '#######################' >&2 
 #
-# Put files for run-time on their places
+# 
 mkdir -p $configdir
 mkdir -p $bindir
 cp $thisdir/run/nlpp $bindir/
+update_res $?
 cp $thisdir/run/langdetect.py $bindir/
+update_res $?
 cp $thisdir/run/conf $configdir/
+update_res $?
 cp $thisdir/run/modules.?? $configdir
+update_res $?
+handle_failure 'Cannot install install scripts for the pipeline.'
 
