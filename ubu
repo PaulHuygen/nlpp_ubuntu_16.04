@@ -20,7 +20,7 @@ function handle_failure () {
     if
 	[ $res -gt 0 ]
     then
-	echo $errmess > &2
+	echo $errmess >&2
 	exit 4
     fi
     
