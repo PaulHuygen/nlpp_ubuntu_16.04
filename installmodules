@@ -25,6 +25,7 @@ function handle_failure () {
 	echo $errmess >&2
 	exit 4
     fi
+}
 
 source $thisdir/source
 mkdir -p $modulesdir
