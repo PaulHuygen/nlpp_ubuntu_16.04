@@ -23,7 +23,7 @@ function handle_failure () {
 	echo $errmess >&2
 	exit 4
     fi
-    
+}
 
 echo '#######################' >&2 
 echo '#######################' >&2
