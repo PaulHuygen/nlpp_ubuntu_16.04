@@ -1,10 +1,10 @@
 vua-resources                GIT  https://github.com/cltl/vua-resources.git e730ce672f2a13457393028b679e9147334c490e
 ixa-pipe-tok                 GIT  https://github.com/PaulHuygen/ixa-pipe-tok.git 6f030219c5b7c077ec3ac32c8eb4682ee1e8e766
-ixa-pipe-topic               GIT  https://github.com/PaulHuygen/ixa-pipe-topic.git 0a059c6583b70dd315027dad1140c362d0e31bc1
+ixa-pipe-topic               GIT  https://github.com/PaulHuygen/ixa-pipe-topic.git c511087de81941f81fc9e066e9d00e7f3493ff24
 ixa-pipe-pos                 GIT  https://github.com/PaulHuygen/ixa-pipe-pos.git f6de665c2b155828e9ca4d30b38451c5faaaeb9c
 morphosyntactic_parser_nl    GIT  https://github.com/PaulHuygen/morphosyntactic_parser_nl.git 606e7d11b8597e1b263da080fb6b30c6aa97b1b0
 ixa-pipe-parse               GIT  https://github.com/PaulHuygen/ixa-pipe-parse.git bf8e91f829e963fe16684a12ad241f8b1aab251d
-ixa-pipe-nerc                GIT  https://github.com/PaulHuygen/ixa-pipe-nerc.git e6197f960aeb383dd9c67cd329f8716dff96d7a0
+ixa-pipe-nerc                GIT  https://github.com/PaulHuygen/ixa-pipe-nerc.git 2c23270d1830035b10f5001b533b8619f5ff42d7
 svm_wsd                      GIT  https://github.com/PaulHuygen/svm_wsd.git eae13e95c215bc359431c50349a8aaf0270307c2
 ixa-pipe-ned                 GIT  https://github.com/PaulHuygen/ixa-pipe-ned.git d782fb8ba07ed43fd268313031cc3994692a6f21
 ixa-pipe-wikify              GIT  https://github.com/PaulHuygen/ixa-pipe-wikify.git 1bd1b68205ec39ba463a216aa49fddcfaf239b1a
@@ -18,7 +18,7 @@ multilingual_factuality      GIT  https://github.com/PaulHuygen/multilingual_fac
 EventCoreference             GIT  https://github.com/PaulHuygen/EventCoreference.git 1f5125331528c1c57998cc2728703dcbef32cea2
 ixa-pipe-srl		     GIT  https://github.com/PaulHuygen/ixa-pipe-srl.git 927720b9e37117d9dca0084a63d081a8dd6db928
 EHU-ukb.v30                  SEC  20171004_EHU-ukb.v30.tgz
-it_makes_sense_WSD           GIT  https://github.com/PaulHuygen/it_makes_sense_WSD.git 6fafbda7a34ffe69accfa9c5023ebf90a078b582
+it_makes_sense_WSD           GIT  https://github.com/PaulHuygen/it_makes_sense_WSD.git cd40010771d0e3264d3897385f6b333cd9ab3701
 EHU-corefgraph.v30           SEC  20171005_EHU-corefgraph.v30.tgz
 FBK-time.v30                 SEC  20170831_FBK-time.v30.tgz
 FBK-temprel.v30              SEC  20170831_FBK-temprel.v30.tgz
