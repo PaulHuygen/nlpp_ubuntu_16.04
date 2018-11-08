@@ -91,7 +91,7 @@ then
     echo "Pipeline has not been completed due to an error." >&2
     exit 4
 fi
-cat out.naf
+cat ${workdir}/out.naf
 if
     [ -z ${keep_temp+x} ]
 then
