@@ -13,3 +13,4 @@ vua-srl-dutch-nominal-events
 Framenet_SRL                 
 multilingual_factuality      
 EventCoreference
+opinion_miner_deluxePP
