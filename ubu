@@ -10,7 +10,7 @@ function update_res () {
     if
 	[ $tres -gt 0 ]
     then
-	res=tres
+	res=$tres
     fi
     
 }
