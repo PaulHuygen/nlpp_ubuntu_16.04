@@ -52,7 +52,7 @@ fi
 #sudo -H ./ubu
 runsudo  "./ubu"
 wait
-cat $modulelist | ${thisdir}/installmodules
+# cat $modulelist | ${thisdir}/installmodules
 # sudo -H ./install_srl_server
 # runsudo "./install_srl_server"
 echo "Finished"
